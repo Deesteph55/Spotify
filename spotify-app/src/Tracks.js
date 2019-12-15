@@ -16,7 +16,7 @@ export const Tracks = ({ displayTracks, tracked, limit }) => {
           <li key={tracked.id}>{tracked.name}</li>
         ))}
       </ul> 
-{/* <p>{tracked.name}</p> */}
+
     </div>
   );
 };

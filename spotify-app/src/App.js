@@ -1,24 +1,12 @@
 import React, { Component } from "react";
 import "./App.css";
 import SpotifyWebAPI from 'spotify-web-api-js';
+import { Playing } from "./Playing";
+import { Tracks } from "./Tracks";
 
 const spotifyApi = new SpotifyWebAPI();
 
 class App extends Component {
-  /*state = {
-    contacts: []
-  };*/
-
-  /* componentDidMount() {
-    axios.get("http://jsonplaceholder.typicode.com/users").then(response => {
-      console.log(response);
-      this.setState({
-        contacts: response.data
-      });
-    });
-  }
-*/
-
   constructor() {
     super();
     const params = this.getHashParams();
@@ -31,7 +19,14 @@ class App extends Component {
       nowPlaying: {
         name: 'Not Checked',
         image: ''
-      }
+      },
+      tracks: [{
+        id:'',
+        name: '',
+        artist: '',
+        album: ''
+      }],
+      limit: ''
     }
     
   }
@@ -45,7 +40,7 @@ class App extends Component {
     return hashParams;
   }
 
-  getNowPlaying(){
+  getNowPlaying = () => {
     spotifyApi.getMyCurrentPlaybackState()
      .then((response) => {
        this.setState({
@@ -56,28 +51,40 @@ class App extends Component {
        });
      })
   }
+  getMyTracks = () => {
+    spotifyApi.getMySavedTracks()
+     .then((response) => {
+      // console.log(response);
+       this.setState({
+         tracks: [{
+           id: response.items[0].track.id,
+           name: response.items[0].track.name,
+           artist:response.items[0].track.artists[0].name,
+           album: response.items[0].track.name
+         }],
+         limit: 50
+       });
+     })
+     
+  }
   render() {
     return (
       <div className="App">
-        {/*} <img src={logo} className="App-logo" alt="logo" />
-        <h1>Spotify</h1>
-        <ul>
-          {this.state.contacts.map(contact => (
-            <li key={contact.id}>{contact.name}</li>
-          ))}
-        </ul>
-          </div>*/}
+       
         <h1>HOLLA</h1>
         <a href="http://localhost:8888">
           <button>Login with Spotify</button>
-        </a>
-        <div>Now playing: {this.state.nowPlaying.name}</div>
+       </a>
+       {/* <div>Now playing: {this.state.nowPlaying.name}</div>
         <div>
           <img src={this.state.nowPlaying.image} style={{ width: 100 }} />
         </div>
         <button onClick={() => this.getNowPlaying()}>
           Check Now Playing
-        </button>
+    </button>*/}
+
+       <Playing displayPlaying={this.getNowPlaying} now={this.state.nowPlaying}/>
+       <Tracks displayTracks={this.getMyTracks} tracked={this.state.tracks} limit={this.state.limit}/>
       </div>
     );
   }

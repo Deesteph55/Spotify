@@ -20,3 +20,18 @@
           ))}
         </ul>
           </div>*/}
+
+          // createTable = () => {
+  //   let table = []
+  //   for (let i = 0; i < 3; i++) {
+  //     let children = []
+  //     //Inner loop to create children
+  //     for (let j = 0; j < 5; j++) {
+  //       children.push(<td>{`Column ${j + 1}`}</td>)
+  //     }
+  //     //Create the parent and add the children
+  //     table.push(<tr>{children}</tr>)
+  //   }
+  //   return table
+
+  // }

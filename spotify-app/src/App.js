@@ -3,6 +3,7 @@ import "./App.css";
 import SpotifyWebAPI from 'spotify-web-api-js';
 import { Playing } from "./Playing";
 import { Tracks } from "./Tracks";
+import axios from 'axios';
 
 const spotifyApi = new SpotifyWebAPI();
 
@@ -14,7 +15,7 @@ class App extends Component {
     if(token){
       spotifyApi.setAccessToken(token)
     }
-    this.state ={
+    this.state = {
       loggedIn: token ? true : false,
       nowPlaying: {
         name: 'Not Checked',
@@ -26,7 +27,6 @@ class App extends Component {
         artist: '',
         album: ''
       }],
-      limit: ''
     }
     
   }
@@ -52,20 +52,16 @@ class App extends Component {
      })
   }
   getMyTracks = () => {
-    spotifyApi.getMySavedTracks()
+    spotifyApi.getMySavedTracks({limit: 50})
+   // axios.get("https://api.spotify.com/v1/me/tracks?limit=50")
      .then((response) => {
-      // console.log(response);
+       console.log("the response")
+       console.log(typeof response)
+       console.log(response);
        this.setState({
-         tracks: [{
-           id: response.items[0].track.id,
-           name: response.items[0].track.name,
-           artist:response.items[0].track.artists[0].name,
-           album: response.items[0].track.name
-         }],
-         limit: 50
+        tracks: response.items
        });
-     })
-     
+     })  
   }
   render() {
     return (
@@ -75,16 +71,12 @@ class App extends Component {
         <a href="http://localhost:8888">
           <button>Login with Spotify</button>
        </a>
-       {/* <div>Now playing: {this.state.nowPlaying.name}</div>
-        <div>
-          <img src={this.state.nowPlaying.image} style={{ width: 100 }} />
-        </div>
-        <button onClick={() => this.getNowPlaying()}>
-          Check Now Playing
-    </button>*/}
-
+       
        <Playing displayPlaying={this.getNowPlaying} now={this.state.nowPlaying}/>
-       <Tracks displayTracks={this.getMyTracks} tracked={this.state.tracks} limit={this.state.limit}/>
+       {console.log("track from app")} 
+       {console.log(typeof this.state.tracks)}
+       {console.log(this.state.tracks)} 
+       <Tracks displayTracks={this.getMyTracks} tracked={this.state.tracks} />
       </div>
     );
   }

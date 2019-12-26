@@ -4,7 +4,8 @@ import SpotifyWebAPI from 'spotify-web-api-js';
 import { Playing } from "./Playing";
 import { Tracks } from "./Tracks";
 import axios from 'axios';
-
+import {Search} from "./Search";
+//NAME OF THIS APP IS DENS
 const spotifyApi = new SpotifyWebAPI();
 
 class App extends Component {
@@ -40,17 +41,22 @@ class App extends Component {
     return hashParams;
   }
 
-  getNowPlaying = () => {
-    spotifyApi.getMyCurrentPlaybackState()
-     .then((response) => {
-       this.setState({
-         nowPlaying: {
-           name: response.item.name,
-           image: response.item.album.images[0].url
-         }
-       });
-     })
+  componentDidMount() {
+   // this.getNowPlaying();
+    this.getMyTracks();
   }
+
+  // getNowPlaying = () => {
+  //   spotifyApi.getMyCurrentPlaybackState()
+  //    .then((response) => {
+  //      this.setState({
+  //        nowPlaying: {
+  //          name: response.item.name,
+  //          image: response.item.album.images[0].url
+  //        }
+  //      });
+  //    })
+  // }
   getMyTracks = () => {
     spotifyApi.getMySavedTracks({limit: 50})
    // axios.get("https://api.spotify.com/v1/me/tracks?limit=50")
@@ -63,16 +69,20 @@ class App extends Component {
        });
      })  
   }
+
+
+
   render() {
     return (
       <div className="App">
        
-        <h1>HOLLA</h1>
+        <h1>DENS</h1>
         <a href="http://localhost:8888">
           <button>Login with Spotify</button>
        </a>
-       
-       <Playing displayPlaying={this.getNowPlaying} now={this.state.nowPlaying}/>
+
+       {/* <Playing displayPlaying={this.getNowPlaying} now={this.state.nowPlaying}/> */}
+        {/* <Search/>  */}
        {console.log("track from app")} 
        {console.log(typeof this.state.tracks)}
        {console.log(this.state.tracks)} 

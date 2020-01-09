@@ -56,11 +56,11 @@ export class Search extends Component {
     }
     return found;
   }
-  
+
   render() {
     return (
-      //<div className="container">
-      <div>
+      <div className="container">
+      {/* <div> */}
         <input
           value={this.state.query}
           onChange={e => this.handleOnInputChange(e)}

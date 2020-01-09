@@ -1,15 +1,37 @@
-import React from "react";
+import React, { Component } from "react";
+import SpotifyWebAPI from 'spotify-web-api-js';
+const spotifyApi = new SpotifyWebAPI();
 
+export class Playing extends Component {
+  state = {
+    nowPlaying: {
+      name: "Not Checked",
+      image: ""
+    }
+  };
 
-export const Playing = ({displayPlaying, now}) => {
-  return (
-    <div>
-      {/* <div>Now playing: {this.state.nowPlaying.name}</div> */}
-      <div>Now playing: {now.name}</div>
+  getNowPlaying = () => {
+    spotifyApi.getMyCurrentPlaybackState().then(response => {
+      this.setState({
+        nowPlaying: {
+          name: response.item.name,
+          image: response.item.album.images[0].url
+        }
+      });
+    });
+  };
+
+  render() {
+    var player = this.state.nowPlaying;
+    return (
       <div>
-        <img src={now.image} style={{ width: 100 }} alt={'song pic'} />
+        <div>Now playing: {player.name}</div>
+        <div>
+          <img src={player.image} style={{ width: 100 }} alt={"song pic"} />
+        </div>
+        <button onClick={this.getNowPlaying}>Check Now Playing</button>
       </div>
-       <button onClick={displayPlaying}>Check Now Playing</button> 
-    </div>
-  );
-};
+    );
+  }
+}
+export default Playing;

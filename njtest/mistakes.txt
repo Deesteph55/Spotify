@@ -80,3 +80,45 @@
         }
       });
   };
+
+  
+  // getNowPlaying = () => {
+  //   spotifyApi.getMyCurrentPlaybackState()
+  //    .then((response) => {
+  //      this.setState({
+  //        nowPlaying: {
+  //          name: response.item.name,
+  //          image: response.item.album.images[0].url
+  //        }
+  //      });
+  //    })
+  // }
+
+  // this.setState({
+        //   loading: false,
+        //   message: "Failed to fetch results. Please check network"
+        // });
+
+  render() {
+    const {message} = this.state; 
+    return (
+      <div className="container">
+        {/*Heading*/}
+        <h2 className="heading">Search me</h2>
+        {/*Search Input*/}
+        <label className="search-label" htmlFor="search-input">
+          <input
+            type="text"
+            value={this.state.query}
+            id="search-input"
+            placeholder="Search..."
+            onChange={this.handleOnInputChange}
+          />
+          <Icon color="red" name="search" className="search-icon" />
+        </label>
+        {/* {this.renderSearchResults()} */}
+        {message && <p className="message">{message}</p>}
+      </div>
+    );
+  }
+}

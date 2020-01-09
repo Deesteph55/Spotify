@@ -7,6 +7,7 @@ import axios from 'axios';
 import {Search} from "./Search";
 //NAME OF THIS APP IS DENS
 const spotifyApi = new SpotifyWebAPI();
+//spotifyApi.setPromiseImplementation(Q);
 
 class App extends Component {
   constructor() {
@@ -41,34 +42,23 @@ class App extends Component {
     return hashParams;
   }
 
-  componentDidMount() {
+ /* componentDidMount() {
    // this.getNowPlaying();
-    this.getMyTracks();
-  }
+    //this.getMyTracks();
+  }*/
 
-  // getNowPlaying = () => {
-  //   spotifyApi.getMyCurrentPlaybackState()
+  // getMyTracks = () => {
+  //   spotifyApi.getMySavedTracks({limit: 50})
+  //  // axios.get("https://api.spotify.com/v1/me/tracks?limit=50")
   //    .then((response) => {
+  //      console.log("the response")
+  //      console.log(typeof response)
+  //      console.log(response);
   //      this.setState({
-  //        nowPlaying: {
-  //          name: response.item.name,
-  //          image: response.item.album.images[0].url
-  //        }
+  //       tracks: response.items
   //      });
-  //    })
+  //    })  
   // }
-  getMyTracks = () => {
-    spotifyApi.getMySavedTracks({limit: 50})
-   // axios.get("https://api.spotify.com/v1/me/tracks?limit=50")
-     .then((response) => {
-       console.log("the response")
-       console.log(typeof response)
-       console.log(response);
-       this.setState({
-        tracks: response.items
-       });
-     })  
-  }
 
 
 
@@ -82,11 +72,11 @@ class App extends Component {
        </a>
 
        {/* <Playing displayPlaying={this.getNowPlaying} now={this.state.nowPlaying}/> */}
-        {/* <Search/>  */}
-       {console.log("track from app")} 
+        <Search/> 
+       {/* {console.log("track from app")} 
        {console.log(typeof this.state.tracks)}
-       {console.log(this.state.tracks)} 
-       <Tracks displayTracks={this.getMyTracks} tracked={this.state.tracks} />
+       {console.log(this.state.tracks)}  */}
+       {/* <Tracks displayTracks={this.getMyTracks} tracked={this.state.tracks} /> */}
       </div>
     );
   }

@@ -4,21 +4,31 @@ import SpotifyWebAPI from "spotify-web-api-js";
 import { Playing } from "./Playing";
 import { Tracks } from "./Tracks";
 import { Search } from "./Search";
-import { Button, Segment } from "semantic-ui-react";
+import { Button, Segment, Grid, GridColumn, Container } from "semantic-ui-react";
+import { Navbar } from "./Navbar";
+import { Dashboard } from "./Dashboard";
+import { Router, Route } from "react-router-dom";
 //NAME OF THIS APP IS DENS
 const spotifyApi = new SpotifyWebAPI();
-//spotifyApi.setPromiseImplementation(Q);
+var token;
+var rtoken;
 
 class App extends Component {
   constructor() {
     super();
     const params = this.getHashParams();
-    const token = params.access_token;
+    token = params.access_token;
+    rtoken = params.refresh_token;
+
     if (token) {
       spotifyApi.setAccessToken(token);
     }
+
     this.state = {
-      loggedIn: token ? true : false
+      loggedIn: token ? true : false,
+      showTracks: false,
+      showSearch: false,
+      showNowPlaying: false
     };
   }
   getHashParams() {
@@ -32,26 +42,43 @@ class App extends Component {
     return hashParams;
   }
 
+  handleOpenSearch = () => {
+    this.setState({
+      showSearch: true,
+      showTracks: false
+    });
+  }
+
+  handleOpenTracks = () => {
+    this.setState({
+      showTracks: true,
+      showSearch: false
+    });
+  }
+
   render() {
+    const {showTracks, showSearch} = this.state;
     return (
       <div className="App">
         <h1>DENS</h1>
-        <Segment inverted>
+        {!this.state.loggedIn ? (
           <a href="http://localhost:8888">
-            {/* <button>Login with Spotify</button> */}
             <Button inverted color="red">
               {" "}
               Login to Spotify
             </Button>
           </a>
-        </Segment>
+        ) : null}
 
-        {/* <Playing /> */}
-        {/* <Tracks /> */}
-        {/* <Search /> */}
+        <Navbar openSearch={this.handleOpenSearch} openTracks={this.handleOpenTracks}/>
+        <Container style={{ marginLeft: "10em" }}>
+          <Dashboard showSearch={showSearch} showTracks={showTracks}/>
+        </Container>
+        
       </div>
     );
   }
 }
 
 export default App;
+

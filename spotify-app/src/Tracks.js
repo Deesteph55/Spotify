@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SpotifyWebAPI from "spotify-web-api-js";
 import { List, Image } from "semantic-ui-react";
+import {token, rtoken} from "./App"
 const spotifyApi = new SpotifyWebAPI();
 
 export class Tracks extends Component {
@@ -22,19 +23,24 @@ export class Tracks extends Component {
     });
   };
 
+  if (token) {
+    spotifyApi.setAccessToken(token);
+  }
+  
+
   componentDidMount() {
     this.getMyTracks();
   }
 
   render() {
     const songs = this.state.tracks.filter(item => item.track);
-    const divStyle = {
-      height: "500px",
-      overflowY: "scroll"
-    };
+    // const divStyle = {
+    //   height: "800px",
+    //   overflowY: "scroll"
+    // };
     return (
-      <div style={divStyle}>
-        <List selection>
+      <div>
+        <List selection >
           {songs.map(song => (
             <List.Item key={song.track.id}>
               <Image

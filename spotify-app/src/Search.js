@@ -3,6 +3,7 @@ import { Icon } from "semantic-ui-react";
 import "./Search.css";
 import SpotifyWebAPI from "spotify-web-api-js";
 import { SearchList } from "./SearchList";
+import {token, rtoken} from "./App"
 const spotifyApi = new SpotifyWebAPI();
 //spotifyApi.setPromiseImplementation(Q);
 let prev = null;
@@ -18,6 +19,11 @@ export class Search extends Component {
     // this.cancel = "";
     // this.handleOnInputChange = this.handleOnInputChange.bind(this);
   }
+
+  if (token) {
+    spotifyApi.setAccessToken(token);
+  }
+  
 
   handleOnInputChange = event => {
     const newQuery = event.target.value;

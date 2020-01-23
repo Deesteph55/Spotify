@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import SpotifyWebAPI from 'spotify-web-api-js';
+import {token, rtoken} from "./App"
 const spotifyApi = new SpotifyWebAPI();
 
 export class Playing extends Component {
@@ -10,6 +11,10 @@ export class Playing extends Component {
     }
   };
 
+  if (token) {
+    spotifyApi.setAccessToken(token);
+  }
+  
   getNowPlaying = () => {
     spotifyApi.getMyCurrentPlaybackState().then(response => {
       this.setState({

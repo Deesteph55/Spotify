@@ -122,3 +122,12 @@
     );
   }
 }
+
+<a href="http://localhost:8888">
+            {/* <button>Login with Spotify</button> */}
+            {!this.state.loggedIn ? <Button inverted color="red">
+              {" "}
+              Login to Spotify
+            </Button> : null }
+            
+          </a>

@@ -6,8 +6,8 @@ export const SearchList = ({ list }) => {
     <div>
       <Card.Group centered>
         {list.map(unit => (
-          <Card key={unit.id}>
-            <Image src={unit.album.images[0].url} />
+          <Card key={unit.id} color='red' size='mini'>
+            <Image src={unit.album.images[0].url} size='mini'/>
             <Card.Content>
               <Card.Header>{unit.name}</Card.Header>
               <Card.Meta><span> {unit.artists[0].name} </span></Card.Meta>

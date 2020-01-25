@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Icon } from "semantic-ui-react";
-import "./Search.css";
+//import "./Search.css";
 import SpotifyWebAPI from "spotify-web-api-js";
 import { SearchList } from "./SearchList";
 import {token, rtoken} from "./App"

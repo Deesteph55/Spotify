@@ -53,7 +53,8 @@ export class Tracks extends Component {
                   By{" "}
                   <a>
                     <b>{song.track.artists[0].name}</b>
-                  </a>{" "}
+                  </a>
+                  {" "}
                 </List.Description>
               </List.Content>
             </List.Item>

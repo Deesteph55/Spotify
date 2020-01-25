@@ -11,9 +11,9 @@ export class Playing extends Component {
     }
   };
 
-  if (token) {
-    spotifyApi.setAccessToken(token);
-  }
+  // if (token) {
+  //   spotifyApi.setAccessToken(token);
+  // }
   
   getNowPlaying = () => {
     spotifyApi.getMyCurrentPlaybackState().then(response => {

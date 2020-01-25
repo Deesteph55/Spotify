@@ -1,13 +1,9 @@
 import React, { Component } from "react";
 import "./App.css";
 import SpotifyWebAPI from "spotify-web-api-js";
-import { Playing } from "./Playing";
-import { Tracks } from "./Tracks";
-import { Search } from "./Search";
 import { Button, Segment, Grid, GridColumn, Container } from "semantic-ui-react";
 import { Navbar } from "./Navbar";
 import { Dashboard } from "./Dashboard";
-import { Router, Route } from "react-router-dom";
 //NAME OF THIS APP IS DENS
 const spotifyApi = new SpotifyWebAPI();
 var token;
@@ -28,7 +24,8 @@ class App extends Component {
       loggedIn: token ? true : false,
       showTracks: false,
       showSearch: false,
-      showNowPlaying: false
+      showNowPlaying: false,
+      showPopular: false
     };
   }
   getHashParams() {
@@ -45,21 +42,35 @@ class App extends Component {
   handleOpenSearch = () => {
     this.setState({
       showSearch: true,
-      showTracks: false
+      showTracks: false,
+      showPopular: false
     });
   }
 
   handleOpenTracks = () => {
     this.setState({
       showTracks: true,
-      showSearch: false
+      showSearch: false,
+      showPopular: false
+    });
+  }
+
+  handleOpenPopular = () => {
+    this.setState({
+      showTracks: false,
+      showSearch: false,
+      showPopular: true
     });
   }
 
   render() {
     const {showTracks, showSearch} = this.state;
+    const divStyle = {
+        marginRight: '0em',
+        paddingRight: '0px'
+    };
     return (
-      <div className="App">
+      <div className="App" style={divStyle}>
         <h1>DENS</h1>
         {!this.state.loggedIn ? (
           <a href="http://localhost:8888">
@@ -71,7 +82,7 @@ class App extends Component {
         ) : null}
 
         <Navbar openSearch={this.handleOpenSearch} openTracks={this.handleOpenTracks}/>
-        <Container style={{ marginLeft: "10em" }}>
+        <Container style={{  width: '100%', paddingRight: '0px' }}>
           <Dashboard showSearch={showSearch} showTracks={showTracks}/>
         </Container>
         

@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import SpotifyWebAPI from "spotify-web-api-js";
-import { List, Image } from "semantic-ui-react";
-import {token, rtoken} from "./App"
+import { List, Image, Container } from "semantic-ui-react";
+import styles from "./everything.module.css";
 const spotifyApi = new SpotifyWebAPI();
 
 export class Tracks extends Component {
   constructor(props) {
     super(props);
+    this.myRef = React.createRef();
+    const header = document.getElementById("tracked");
     this.state = {
       tracks: []
     };
@@ -14,19 +16,11 @@ export class Tracks extends Component {
 
   getMyTracks = () => {
     spotifyApi.getMySavedTracks({ limit: 50 }).then(response => {
-      console.log("the response");
-      console.log(typeof response);
-      console.log(response);
       this.setState({
         tracks: response.items
       });
     });
   };
-
-  if (token) {
-    spotifyApi.setAccessToken(token);
-  }
-  
 
   componentDidMount() {
     this.getMyTracks();
@@ -34,12 +28,14 @@ export class Tracks extends Component {
 
   render() {
     const songs = this.state.tracks.filter(item => item.track);
-    // const divStyle = {
-    //   height: "800px",
-    //   overflowY: "scroll"
-    // };
+   
     return (
       <div>
+
+        <div className={styles.sticky}>
+          <h1>Tracks</h1>
+        </div>
+        <div>
         <List selection >
           {songs.map(song => (
             <List.Item key={song.track.id}>
@@ -60,6 +56,8 @@ export class Tracks extends Component {
             </List.Item>
           ))}
         </List>
+        </div>
+        
       </div>
     );
   }

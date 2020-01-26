@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { SearchEList } from "./SearchEList";
 import SpotifyWebAPI from "spotify-web-api-js";
+import { Container } from "semantic-ui-react";
 const spotifyApi = new SpotifyWebAPI();
 
 export class SearchE extends Component {
@@ -26,7 +27,7 @@ export class SearchE extends Component {
   };
 
   getTrack = query => {
-    spotifyApi.searchTracks(query, {limit: 4}).then(response => {
+    spotifyApi.searchTracks(query, { limit: 4 }).then(response => {
       this.setState({
         trackR: response.tracks.items
       });
@@ -34,7 +35,7 @@ export class SearchE extends Component {
   };
 
   getArtist = query => {
-    spotifyApi.searchArtists(query, {limit: 4}).then(response => {
+    spotifyApi.searchArtists(query, { limit: 4 }).then(response => {
       this.setState({
         artistR: response.artists.items
       });
@@ -42,7 +43,7 @@ export class SearchE extends Component {
   };
 
   getAlbum = query => {
-    spotifyApi.searchAlbums(query, {limit: 4}).then(response => {
+    spotifyApi.searchAlbums(query, { limit: 4 }).then(response => {
       this.setState({
         albumR: response.albums.items
       });
@@ -50,7 +51,7 @@ export class SearchE extends Component {
   };
 
   getPlaylist = query => {
-    spotifyApi.searchPlaylists(query, {limit: 4}).then(response => {
+    spotifyApi.searchPlaylists(query, { limit: 4 }).then(response => {
       this.setState({
         playlistR: response.playlists.items
       });
@@ -58,22 +59,24 @@ export class SearchE extends Component {
   };
 
   render() {
+    const unit = document.getElementById("form")
     return (
-      <div className="container">
-        {/* <div> */}
+      <Container textAlign="center">
         <input
           value={this.state.query}
           onChange={e => this.handleOnInputChange(e)}
           placeholder="Search"
+          name="form"
         />
-        {this.state.query.length > 1 ? (<SearchEList
-          track={this.state.trackR}
-          artist={this.state.artistR}
-          album={this.state.albumR}
-          playlist={this.state.playlistR}
-        />) : null }
-        
-      </div>
+        {this.state.query.length > 1 ? (
+          <SearchEList
+            track={this.state.trackR}
+            artist={this.state.artistR}
+            album={this.state.albumR}
+            playlist={this.state.playlistR}
+          />
+        ) : null}
+      </Container>
     );
   }
 }

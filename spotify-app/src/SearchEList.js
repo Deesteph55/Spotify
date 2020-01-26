@@ -8,9 +8,9 @@ export const SearchEList = ({ track, artist, album, playlist }) => {
         <Grid.Row>
           <Grid.Column>
             Songs
-            <Card.Group centered itemsPerRow={2}>
+            <Card.Group centered itemsPerRow={2} >
               {track.map(unit => (
-                <Card key={unit.id} color="purple" size="mini">
+                <Card key={unit.id} color="purple" >
                   <Image src={unit.album.images[0].url} size="mini" />
                   <Card.Content>
                     <Card.Header>{unit.name}</Card.Header>
@@ -75,4 +75,5 @@ export const SearchEList = ({ track, artist, album, playlist }) => {
       </Grid>
     </div>
   );
+
 };

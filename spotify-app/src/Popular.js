@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid, Image, Container } from "semantic-ui-react";
+import { Grid, Image, Container, Button } from "semantic-ui-react";
 import SpotifyWebAPI from "spotify-web-api-js";
 import { Suggestions } from "./Suggestions";
 import { Compare } from "./Compare";
@@ -13,30 +13,30 @@ export class Popular extends Component {
       resultsTwo: [],
       queryOne: "",
       queryTwo: "",
-      popularityOne: 1,
-      popularityTwo: 1
+      popularityOne: 0,
+      popularityTwo: 0,
+      nameOne: "name1",
+      nameTwo: "name2"
     };
   }
 
-  getArtistOne = (queryOne) => {
+  getArtistOne = queryOne => {
     spotifyApi.searchArtists(queryOne).then(response => {
       this.setState({
         resultsOne: response.artists.items
       });
     });
-    
   };
 
-  getArtistTwo = (queryTwo) => {
+  getArtistTwo = queryTwo => {
     spotifyApi.searchArtists(queryTwo).then(response => {
       this.setState({
         resultsTwo: response.artists.items
       });
     });
-
   };
 
-  handleInputOneChange = (event) => {
+  handleInputOneChange = event => {
     const newQuery = event.target.value;
     this.setState(
       {
@@ -52,7 +52,7 @@ export class Popular extends Component {
     );
   };
 
-  handleInputTwoChange = (event) => {
+  handleInputTwoChange = event => {
     const newQuery = event.target.value;
     this.setState(
       {
@@ -68,17 +68,28 @@ export class Popular extends Component {
     );
   };
 
-  getPopOne = (pop) => {
+  getPopOne = (pop, name) => {
     this.setState({
-        popularityOne: pop
-    })
-  }
+      popularityOne: pop,
+      nameOne: name
+    });
+  };
 
- getPopTwo = (pop) => {
+  getPopTwo = (pop, name) => {
     this.setState({
-        popularityTwo: pop
-    })
- }
+      popularityTwo: pop,
+      nameTwo: name
+    });
+  };
+
+  // compareThem = () => {
+  //   {
+  //     <h1>HAHHAHA</h1>;
+  //   }
+  //   // return (
+
+  //   // )
+  // };
 
   render() {
     return (
@@ -96,33 +107,45 @@ export class Popular extends Component {
                 // ref={input => (this.search = input)}
               />
               {this.state.queryOne.length < 1 ? null : (
-                <Suggestions results={this.state.resultsOne} getPop={this.getPopOne} />
+                <Suggestions
+                  results={this.state.resultsOne}
+                  getPop={this.getPopOne}
+                />
               )}
-              
             </form>
           </Grid.Column>
           <Grid.Column>
             <form>
-              <input 
-              value={this.state.queryTwo}
-              onChange={this.handleInputTwoChange}
-              placeholder="Artist 2"
-            //   ref={input => (this.search = input)}    
+              <input
+                value={this.state.queryTwo}
+                onChange={this.handleInputTwoChange}
+                placeholder="Artist 2"
               />
               {this.state.queryTwo.length < 1 ? null : (
-                <Suggestions results={this.state.resultsTwo} getPop={this.getPopTwo}/>
+                <Suggestions
+                  results={this.state.resultsTwo}
+                  getPop={this.getPopTwo}
+                />
               )}
-
-              {/* <p>{this.state.queryTwo}</p> */}
             </form>
           </Grid.Column>
         </Grid>
-        <Container>The results
-            Artist 1: {this.state.popularityOne}
-            Artist 2: {this.state.popularityTwo}
-            <Compare popOne={this.state.popularityOne} popTwo={this.state.popularityTwo}/>
+        <Container>
+          <h1>The results</h1>
+          Artist 1: {this.state.nameOne}
+          <br></br>
+          <br></br>
+          Artist 2: {this.state.nameTwo}
+          {this.state.popularityTwo != 0 ? (
+            <Compare
+              pop1={this.state.popularityOne}
+              pop2={this.state.popularityTwo}
+              name1={this.state.nameOne}
+              name2={this.state.nameTwo}
+            />
+          ) : null}
+          {this.state.popularityTwo != 0 ? (<Suggestions/> == null) : (<Suggestions/> == null)}
         </Container>
-
       </div>
     );
   }

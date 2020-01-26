@@ -6,7 +6,6 @@ const spotifyApi = new SpotifyWebAPI();
 export class SearchE extends Component {
   constructor(props) {
     super(props);
-    // let options: {artist,album,track,playlist};
     this.state = {
       trackR: [],
       artistR: [],
@@ -58,14 +57,6 @@ export class SearchE extends Component {
     });
   };
 
-  //   renderReturned = () => {
-  //     let found = <h1>Find me</h1>;
-  //     if(this.state.results) {
-  //       found = <Searc
-  //     }
-  //     return found;
-  //   }
-
   render() {
     return (
       <div className="container">
@@ -75,13 +66,13 @@ export class SearchE extends Component {
           onChange={e => this.handleOnInputChange(e)}
           placeholder="Search"
         />
-        {/* {this.renderReturned()} */}
-        <SearchEList
+        {this.state.query.length > 1 ? (<SearchEList
           track={this.state.trackR}
           artist={this.state.artistR}
           album={this.state.albumR}
           playlist={this.state.playlistR}
-        />
+        />) : null }
+        
       </div>
     );
   }

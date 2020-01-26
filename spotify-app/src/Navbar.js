@@ -1,12 +1,11 @@
 import React, { useContext } from "react";
 import { Menu, Container, Button } from "semantic-ui-react";
 
-export const Navbar = ({ openSearch, openTracks }) => {
+export const Navbar = ({ openSearch, openTracks, openPopular }) => {
   return (
     <Menu fixed="left" inverted vertical>
       <Container>
         <Menu.Item>
-       
           <Button content="Home" />
         </Menu.Item>
         <Menu.Item>
@@ -19,13 +18,9 @@ export const Navbar = ({ openSearch, openTracks }) => {
         </Menu.Item>
         <Menu.Item>
           
-          <Button content="Popular" />
+          <Button onClick={openPopular} content="Popular" />
         </Menu.Item>
 
-        <Menu.Item>
-          {/* onClick={} */}
-          <Button content="Search Everything" />
-        </Menu.Item>
       </Container>
     </Menu>
   );

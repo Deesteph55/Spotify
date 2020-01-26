@@ -25,7 +25,8 @@ class App extends Component {
       showTracks: false,
       showSearch: false,
       showNowPlaying: false,
-      showPopular: false
+      showPopular: false,
+      showSearchE: false
     };
   }
   getHashParams() {
@@ -39,18 +40,18 @@ class App extends Component {
     return hashParams;
   }
 
-  handleOpenSearch = () => {
+  handleOpenSearchE = () => {
     this.setState({
-      showSearch: true,
+      showSearchE: true,
       showTracks: false,
-      showPopular: false
+      showPopular: false,
     });
   }
 
   handleOpenTracks = () => {
     this.setState({
       showTracks: true,
-      showSearch: false,
+      showSearchE: false,
       showPopular: false
     });
   }
@@ -58,13 +59,13 @@ class App extends Component {
   handleOpenPopular = () => {
     this.setState({
       showTracks: false,
-      showSearch: false,
+      showSearchE: false,
       showPopular: true
     });
   }
 
   render() {
-    const {showTracks, showSearch} = this.state;
+    const {showTracks, showSearchE, showPopular} = this.state;
     const divStyle = {
         marginRight: '0em',
         paddingRight: '0px'
@@ -81,9 +82,9 @@ class App extends Component {
           </a>
         ) : null}
 
-        <Navbar openSearch={this.handleOpenSearch} openTracks={this.handleOpenTracks}/>
+        <Navbar openSearch={this.handleOpenSearchE} openTracks={this.handleOpenTracks} openPopular={this.handleOpenPopular}/>
         <Container style={{  width: '100%', paddingRight: '0px' }}>
-          <Dashboard showSearch={showSearch} showTracks={showTracks}/>
+          <Dashboard showSearchE={showSearchE} showTracks={showTracks} showPopular={showPopular}/>
         </Container>
         
       </div>

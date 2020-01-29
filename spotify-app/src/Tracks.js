@@ -31,9 +31,8 @@ export class Tracks extends Component {
    
     return (
       <div>
-
         <div className={styles.sticky}>
-          <h1>Tracks</h1>
+          <h1 style={{fontSize: '50px'}}>Tracks</h1>
         </div>
         <div>
         <List selection >

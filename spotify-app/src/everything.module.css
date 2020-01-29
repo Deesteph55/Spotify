@@ -35,5 +35,9 @@
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  background: linear-gradient(#41B6B6, #9E41B6);
+  /* background: linear-gradient(#41B6B6, #9E41B6);
+    background-clip: text;
+    -webkit-text-fill-color: black;
+    font-size: 150px;  */
+  z-index: 22;
 }

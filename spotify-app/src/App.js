@@ -10,6 +10,7 @@ import {
 } from "semantic-ui-react";
 import { Navbar } from "./Navbar";
 import { Dashboard } from "./Dashboard";
+import * as SpotifyFunctions from './spotifyFunctions'
 //NAME OF THIS APP IS DENS
 const spotifyApi = new SpotifyWebAPI();
 var token;
@@ -74,6 +75,16 @@ class App extends Component {
     });
   };
 
+  generateRandomString = function(length) {
+    var text = '';
+    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  
+    for (var i = 0; i < length; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+  };
+
   handleHome = () => {
     this.setState({
       showTracks: false,
@@ -88,12 +99,18 @@ class App extends Component {
       marginRight: "0em",
       paddingRight: "0px"
     };
+    var state = this.generateRandomString(16);
     return (
       <div className="App" style={divStyle}>
         {!this.state.loggedIn ? (
           <div>
             <h1>DENS</h1>
-            <a href="http://localhost:8888">
+            {/* <a href="https://accounts.spotify.com/authorize?client_id=cee959f14e8e4d4da32f7d6e6b76fc28&scope=playlist-read-private%20playlist-read-collaborative%20playlist-modify-public%20user-read-recently-played%20playlist-modify-private%20ugc-image-upload%20user-follow-modify%20user-follow-read%20user-library-read%20user-library-modify%20user-read-private%20user-read-email%20user-top-read%20user-read-playback-state&response_type=token&redirect_uri=http://localhost:8888/callback&state=state"> */}
+            
+            {/* <a href="http://localhost:8888">  */}
+
+            {/* <a href={SpotifyFunctions.redirectUrlToSpotifyForLogin()} >  */}
+            <a href='http://localhost:8888/login' > 
               <Button inverted color="red">
                 {" "}
                 Login to Spotify
